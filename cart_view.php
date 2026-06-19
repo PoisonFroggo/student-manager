@@ -1,13 +1,5 @@
-<!DOCTYP">
-<htm">
-<head>
-    <title>My Guitar Shop</title>
-    <link rel="stylesheet" type="text/css" href="main.css">
-</head>
-<body>
-    <header>
-        <h1>My Guitar Shop</h1>
-    </header>
+<?php include 'view/header.php'; ?>
+
     <main>
 
         <h1>Your Cart</h1>

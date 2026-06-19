@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My Guitar Shop</title>
-    <link rel="stylesheet" type="text/css" href="main.css">
-</head>
-<body>
-    <header>
-        <h1>My Guitar Shop</h1>
-    </header>
-    <main>
+<?php include '../view/header.php'; ?>
 
+
+    <main>
         <h1>Add Item</h1>
         <form action="." method="post">
             <input type="hidden" name="action" value="add">
