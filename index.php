@@ -19,6 +19,10 @@ $products['MMS-3408'] = array('name' => 'Clarinet', 'cost' => '299.50');
 // Include cart functions
 require_once('cart.php');
 
+//include database functions
+require_once('makeDB.php');
+
+
 // Get the action to perform
 $action = filter_input(INPUT_POST, 'action');
 if ($action === NULL) {
