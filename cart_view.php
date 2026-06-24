@@ -1,9 +1,7 @@
 <?php include 'view/header.php'; ?>
 
     <main>
-        <form action="." method="post">
-        <input type="button" name="createDB" value="click me">
-        </form>
+        <?php include 'initializeDB.php'; ?>
 
         <h1>Your Cart</h1>
         <?php if (empty($_SESSION['cart12']) || count($_SESSION['cart12']) == 0) : ?>

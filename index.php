@@ -20,7 +20,7 @@ $products['MMS-3408'] = array('name' => 'Clarinet', 'cost' => '299.50');
 require_once('cart.php');
 
 //include database functions
-require_once('makeDB.php');
+require_once('initializeDB.php');
 
 
 // Get the action to perform
@@ -34,6 +34,9 @@ if ($action === NULL) {
 
 // Add or update cart as needed
 switch($action) {
+    case 'init_DB':
+        include('add_item_view.php');
+        break;
     case 'add':
         $product_key = filter_input(INPUT_POST, 'productkey');
         $item_qty = filter_input(INPUT_POST, 'itemqty');
