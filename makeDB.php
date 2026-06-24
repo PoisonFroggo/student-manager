@@ -22,7 +22,7 @@
     {
         try{
         global $db;
-        $sql = "CREATE TABLE Students (
+        $sql = "CREATE TABLE IF NOT EXISTS Students (
         studentid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         firstname VARCHAR(50) NOT NULL,
         lastname VARCHAR(50) NOT NULL,
@@ -41,7 +41,7 @@
     {
         try {
             global $db;
-            $sql = "CREATE TABLE Classes (
+            $sql = "CREATE TABLE IF NOT EXISTS Classes (
             classid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             classname VARCHAR(50) NOT NULL,
             teacher VARCHAR(50) NOT NULL
@@ -58,10 +58,10 @@
     {
         try {
             global $db;
-            $sql = "CREATE TABLE Enrollments (
+            $sql = "CREATE TABLE IF NOT EXISTS Enrollments (
             enrollmentid INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            studentid int,
-            classid int,
+            studentid INT(6) UNSIGNED,
+            classid INT(6) UNSIGNED,
             grade VARCHAR(3),
             CONSTRAINT fk_student
                 FOREIGN KEY(studentid)

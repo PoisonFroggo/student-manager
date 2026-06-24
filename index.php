@@ -35,7 +35,9 @@ if ($action === NULL) {
 // Add or update cart as needed
 switch($action) {
     case 'init_DB':
-        include('add_item_view.php');
+        createStudentsTable();
+        createClassesTable();
+        createEnrollmentsTable();
         break;
     case 'add':
         $product_key = filter_input(INPUT_POST, 'productkey');
