@@ -56,5 +56,4 @@
         <p><a href=".?action=empty_cart">Empty Cart</a></p>
 
     </main>
-</body>
-</html>
+<?php include 'view/footer.php'; ?>
