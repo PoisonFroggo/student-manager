@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <title>Student Manager</title>
+        <link rel="stylesheet" type="text/css" href="main.css">
+    </head>
 
-<head>
-    <title>Student Manager</title>
-    <link rel="stylesheet" type="text/css"
-    href="../student-manager/main.css">
-</head>
+    <body>
+        <header>
+            <h1>Student Manager</h1>
+        </header>
 
-<body>
-    <header>
-        <h1>Student Manager</h1>
-    </header>
+        <header>
+            <nav>
+                <p><a href=".?action=show_home">Home</a></p>
+                <p><a href=".?action=show_students">View Students</a></p>
+                <p><a href=".?action=add_student">Add Student</a></p>
+            </nav>
+        </header>
