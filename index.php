@@ -20,6 +20,8 @@ require_once('model/temp_db_stuf.php');
 
 //include database functions
 require_once('model/initializeDB.php');
+//Access the functions for table filling
+require_once('model/Students.php');
 
 
 // Get the action to perform
@@ -42,6 +44,7 @@ switch($action) {
         echo $ln;
         echo $dob;
         echo $email;
+        createStudent($fn, $ln, $dob, $email);
         break;
     case 'init_DB':
         createStudentsTable();

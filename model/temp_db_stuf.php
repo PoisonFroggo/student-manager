@@ -6,3 +6,8 @@
         <input type="email" name="email" required>
         <input type="submit" name="createDB" value="Create Student">
     </form>
+
+    <form action="." method="post">
+        <input type="hidden" name="action" value="remove_student">
+        <input type="submit" name="delStdnt" value="Remove Student">
+    </form>
