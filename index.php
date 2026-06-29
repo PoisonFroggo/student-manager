@@ -1,26 +1,25 @@
 <?php
+//error reporting
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+include 'views/layout/header.php';
 // Start session management with a persistent cookie
 $lifetime = 60 * 60 * 24 * 365 * 3;    // 3 yr in sec
 session_set_cookie_params($lifetime, '/');
 session_start();
-
 //display session ID
 echo "Session ID: " . session_id() . "<br>";
 
 // Create a cart array if needed
 if (empty($_SESSION['cart'])) { $_SESSION['cart'] = array(); }
 
-// Create a table of products
-$products = array();
-$products['MMS-1754'] = array('name' => 'Flute', 'cost' => '149.50');
-$products['MMS-6289'] = array('name' => 'Trumpet', 'cost' => '199.50');
-$products['MMS-3408'] = array('name' => 'Clarinet', 'cost' => '299.50');
 
-// Include cart functions
-require_once('cart.php');
+// Include temporary database interfaces
+require_once('model/temp_db_stuf.php');
 
 //include database functions
-require_once('initializeDB.php');
+require_once('model/initializeDB.php');
 
 
 // Get the action to perform
@@ -34,6 +33,16 @@ if ($action === NULL) {
 
 // Add or update cart as needed
 switch($action) {
+    case 'make_student':
+        $fn = filter_input(INPUT_POST, 'studentFN');
+        $ln = filter_input(INPUT_POST, 'studentLN');
+        $dob = filter_input(INPUT_POST, 'dob');
+        $email = filter_input(INPUT_POST, 'email');
+        echo $fn;
+        echo $ln;
+        echo $dob;
+        echo $email;
+        break;
     case 'init_DB':
         createStudentsTable();
         createClassesTable();
@@ -65,4 +74,5 @@ switch($action) {
         include('cart_view.php');
         break;
 }
+include 'views/layout/footer.php';
 ?>
