@@ -15,5 +15,7 @@
                 <p><a href=".?action=show_home">Home</a></p>
                 <p><a href=".?action=show_students">View Students</a></p>
                 <p><a href=".?action=add_student">Add Student</a></p>
+                <p><a href=".?action=edit_student">Edit Student</a></p>
+                <p><a href=".?action=delete_student">Delete Student</a></p>
             </nav>
         </header>
