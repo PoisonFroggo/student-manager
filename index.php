@@ -66,15 +66,17 @@ switch($action) {
         }
         include('cart_view.php');
         break;
-    case 'show_cart':
-        include('cart_view.php');
+    case 'show_students':
+        include('views/tables/list.php');
         break;
-    case 'show_add_item':
-        include('add_item_view.php');
+    case 'add_student':
+        include('views/tables/add.php');
         break;
-    case 'empty_cart':
-        unset($_SESSION['cart12']);
-        include('cart_view.php');
+    case 'edit_student':
+        include('views/tables/edit.php');
+        break;
+    case 'delete_student':
+        include('views/tables/delete.php');
         break;
 }
 include 'views/layout/footer.php';
