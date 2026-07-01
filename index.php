@@ -1,27 +1,28 @@
 <?php
-//error reporting
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
-include 'views/layout/header.php';
 // Start session management with a persistent cookie
 $lifetime = 60 * 60 * 24 * 365 * 3;    // 3 yr in sec
 session_set_cookie_params($lifetime, '/');
 session_start();
-//display session ID
-echo "Session ID: " . session_id() . "<br>";
 
-// Create a cart array if needed
-if (empty($_SESSION['cart'])) { $_SESSION['cart'] = array(); }
+/*
+Cookie
+*/
 
+if (!isset($_COOKIE['lastVisit'])) {
+    setcookie("lastVisit", date("Y-m-d H:i:s"), time() + (86400 * 30), "/");
+    $welcomeMessage = "Welcome! This is your first visit.";
+} else {
+    $welcomeMessage = "Welcome back! Last visit: " . $_COOKIE['lastVisit'];
 
-// Include temporary database interfaces
-require_once('model/temp_db_stuf.php');
+    // Update cookie
+    setcookie("lastVisit", date("Y-m-d H:i:s"), time() + (86400 * 30), "/");
+}
+
 
 //include database functions
-require_once('model/initializeDB.php');
-//Access the functions for table filling
-require_once('model/Students.php');
+require_once('initializeDB.php');
+require_once('database.php');
+require_once('student_db.php');
 
 
 // Get the action to perform
@@ -29,23 +30,123 @@ $action = filter_input(INPUT_POST, 'action');
 if ($action === NULL) {
     $action = filter_input(INPUT_GET, 'action');
     if ($action === NULL) {
-        $action = 'show_add_item';
+        $action = 'list_students';
     }
 }
 
-// Add or update cart as needed
-switch($action) {
-    case 'make_student':
-        $fn = filter_input(INPUT_POST, 'studentFN');
-        $ln = filter_input(INPUT_POST, 'studentLN');
-        $dob = filter_input(INPUT_POST, 'dob');
-        $email = filter_input(INPUT_POST, 'email');
-        echo $fn;
-        echo $ln;
-        echo $dob;
-        echo $email;
-        createStudent($fn, $ln, $dob, $email);
+/* ===========================
+   CONTROLLER
+=========================== */
+
+switch ($action) {
+
+    // Display all students
+    case 'list_students':
+
+        $students = get_students();
+
+        include('student_list.php');
+
         break;
+
+
+    // Show Add Student page
+    case 'show_add_form':
+
+        include('student_add.php');
+
+        break;
+
+
+    // Add new student
+    case 'add_student':
+
+        $firstname = filter_input(INPUT_POST, 'firstname');
+        $lastname  = filter_input(INPUT_POST, 'lastname');
+        $dob       = filter_input(INPUT_POST, 'dob');
+        $email     = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+
+        if ($firstname == NULL ||
+            $lastname == NULL ||
+            $dob == NULL ||
+            $email == FALSE) {
+
+            $error = "Please complete all fields correctly.";
+            include('../errors/error.php');
+
+        } else {
+
+            add_student($firstname, $lastname, $dob, $email);
+
+            $_SESSION['message'] = "Student added successfully.";
+
+            header("Location: index.php");
+            exit();
+        }
+
+        break;
+
+
+    // Show Edit page
+    case 'show_edit_form':
+
+        $studentid = filter_input(INPUT_POST, 'studentid', FILTER_VALIDATE_INT);
+
+        $student = get_student($studentid);
+
+        include('student_edit.php');
+
+        break;
+
+
+    // Update student
+    case 'update_student':
+
+        $studentid = filter_input(INPUT_POST, 'studentid', FILTER_VALIDATE_INT);
+        $firstname = filter_input(INPUT_POST, 'firstname');
+        $lastname  = filter_input(INPUT_POST, 'lastname');
+        $dob       = filter_input(INPUT_POST, 'dob');
+        $email     = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+
+        update_student($studentid, $firstname, $lastname, $dob, $email);
+
+        $_SESSION['message'] = "Student updated successfully.";
+
+        header("Location: index.php");
+        exit();
+
+        break;
+
+
+    // Delete student
+    case 'delete_student':
+
+        $studentid = filter_input(INPUT_POST, 'studentid', FILTER_VALIDATE_INT);
+
+        delete_student($studentid);
+
+        $_SESSION['message'] = "Student deleted successfully.";
+
+        header("Location: index.php");
+        exit();
+
+        break;
+
+
+    // Unknown action
+    default:
+
+        $students = get_students();
+
+        include('student_list.php');
+
+        break;
+}
+?>
+
+
+/* Add or update cart as needed
+switch($action) {
     case 'init_DB':
         createStudentsTable();
         createClassesTable();
@@ -66,18 +167,17 @@ switch($action) {
         }
         include('cart_view.php');
         break;
-    case 'show_students':
-        include('views/tables/list.php');
+    case 'show_cart':
+        include('cart_view.php');
         break;
-    case 'add_student':
-        include('views/tables/add.php');
+    case 'show_add_item':
+        include('add_item_view.php');
         break;
-    case 'edit_student':
-        include('views/tables/edit.php');
-        break;
-    case 'delete_student':
-        include('views/tables/delete.php');
+    case 'empty_cart':
+        unset($_SESSION['cart12']);
+        include('cart_view.php');
         break;
 }
-include 'views/layout/footer.php';
+        
 ?>
+*/
