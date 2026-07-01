@@ -11,7 +11,6 @@ require_once '__DIR__./../Config/database.php';
 |dob       | varchar(50)  | NOT NULL |             | No default |
 |email     | varchar(50)  | NOT NULL |             | No default |
 
-TODO: Remove the ability to insert duplicate students (low priority)
 */
 
 function createStudent($fn, $ln, $dob, $email) {
