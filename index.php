@@ -18,11 +18,25 @@ if (!isset($_COOKIE['lastVisit'])) {
     setcookie("lastVisit", date("Y-m-d H:i:s"), time() + (86400 * 30), "/");
 }
 
+/*
+--------------------------------------------------------------------
+----------Debug, comment out if not debugging-----------------------
+--------------------------------------------------------------------
+*/
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 
 //include database functions
-require_once('initializeDB.php');
-require_once('database.php');
-require_once('student_db.php');
+require_once('model/initializeDB.php');
+require_once('Config/database.php');
+//require_once('student_db.php');
+
+//Include Paths
+require_once(__DIR__.'/Config/paths.php');
+//include other required functions
+require_once(MODELS_PATH.'/Students.php');
 
 
 // Get the action to perform
@@ -43,9 +57,9 @@ switch ($action) {
     // Display all students
     case 'list_students':
 
-        $students = get_students();
+        $students = getStudents();
 
-        include('student_list.php');
+        include(VIEWS_PATH . '/tables/student_list.php');
 
         break;
 
@@ -53,7 +67,7 @@ switch ($action) {
     // Show Add Student page
     case 'show_add_form':
 
-        include('student_add.php');
+        include(VIEWS_PATH . '/tables/student_add.php');
 
         break;
 
@@ -72,11 +86,11 @@ switch ($action) {
             $email == FALSE) {
 
             $error = "Please complete all fields correctly.";
-            include('../errors/error.php');
+            include(MODELS_PATH . '/database_error.php');
 
         } else {
 
-            add_student($firstname, $lastname, $dob, $email);
+            createStudent($firstname, $lastname, $dob, $email);
 
             $_SESSION['message'] = "Student added successfully.";
 
@@ -92,9 +106,9 @@ switch ($action) {
 
         $studentid = filter_input(INPUT_POST, 'studentid', FILTER_VALIDATE_INT);
 
-        $student = get_student($studentid);
+        $student = retrieveStudent($studentid);
 
-        include('student_edit.php');
+        include(VIEWS_PATH . '/tables/student_edit.php');
 
         break;
 
@@ -136,9 +150,9 @@ switch ($action) {
     // Unknown action
     default:
 
-        $students = get_students();
+        $students = getStudents();
 
-        include('student_list.php');
+        include(VIEWS_PATH . '/tables/student_list.php');
 
         break;
 }

@@ -1,4 +1,5 @@
-<?php include '../view/header.php'; ?>
+<?php require_once(__DIR__.'/../Config/paths.php'); ?>
+<?php include VIEWS_PATH.'/layout/header.php'; ?>
 
 <main>
     <h1>Database Error</h1>
@@ -7,5 +8,4 @@
     <p>&nbsp;</p>
 </main>
 
-</body>
-</html>
+<?php include VIEWS_PATH.'/layout/footer.php'; ?>
