@@ -66,55 +66,35 @@ function retrieveStudent($studentID) {
     return $student;
 }
 //update functions
-function editStudentEmail($studentID, $newEmail) {
+function update_student($studentid, $firstname, $lastname, $dob, $email) {
     global $db;
 
     $sql = "UPDATE Students
-            SET email = :email
+            SET firstname = :firstname,
+                lastname = :lastname,
+                dob = :dob,
+                email = :email
             WHERE studentid = :studentid";
 
     try {
         $stmt = $db->prepare($sql);
-        $stmt->execute([
-            ':email' => $newEmail,
-            ':studentid' => $studentID
-        ]);
 
-        if ($stmt->rowCount() === 0) {
-            throw new Exception("Student with ID {$studentID} does not exist.");
-        }
+        $stmt->execute([
+            ':studentid' => $studentid,
+            ':firstname' => $firstname,
+            ':lastname' => $lastname,
+            ':dob' => $dob,
+            ':email' => $email
+        ]);
 
         return true;
 
     } catch (PDOException $e) {
-        if ($e->getCode() == '23000') {
-            throw new Exception("That email address is already in use.");
+
+        if ($e->getCode() == 23000) {
+            return "Email already exists.";
         }
 
-        throw $e;
-    }
-}
-
-function editStudentDOB($studentID, $newDOB) {
-    global $db;
-
-    $sql = "UPDATE Students
-            SET dob = :dob
-            WHERE studentid = :studentid";
-    
-    try {
-        $stmt = $db->prepare($sql);
-        $stmt->execute([
-            ':dob' => $newDOB,
-            ':studentid' => $studentID
-        ]);
-
-        if ($stmt->rowCount() === 0) {
-            throw new Exception("Student with ID {$studentID} does not exist.");
-        }
-
-        return true;
-    } catch (PDOException $e) {
         throw $e;
     }
 }
