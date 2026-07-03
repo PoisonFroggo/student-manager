@@ -16,7 +16,8 @@
 <?php endif; ?>
 
 <form method="post">
-
+    <input type="hidden" name="action" value="add_student">
+    
     <label>First Name</label><br>
     <input type="text" name="firstname"><br><br>
 
