@@ -13,6 +13,7 @@
                 <th>Date of Birth</th>
                 <th>Email</th>
                 <th>&nbsp;</th>
+                <th>&nbsp;</th>
             </tr>
             <?php foreach ($students as $student) : ?>
             <tr>
@@ -21,6 +22,7 @@
                 <td class="center"><?php echo $student['dob']; ?></td>
                 <td class="center"><?php echo $student['email']; ?></td>
                 <td><a href="?action=show_edit_form&studentid=<?php echo $student['studentid']; ?>">edit</a></td>
+                <td><a href="?action=delete_student&studentid=<?php echo $student['studentid']; ?>">delete</a></td>
             </a>
             </tr>
             <?php endforeach; ?>
