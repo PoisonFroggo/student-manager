@@ -156,8 +156,6 @@ switch ($action) {
 
         break;
 }
-?>
-
 
 /* Add or update cart as needed
 switch($action) {
@@ -195,3 +193,5 @@ switch($action) {
         
 ?>
 */
+
+?>
