@@ -85,7 +85,7 @@ switch ($action) {
             $dob == NULL ||
             $email == FALSE) {
 
-            $error = "Please complete all fields correctly.";
+            $error_message = "Please complete all fields correctly.";
             include(MODELS_PATH . '/database_error.php');
 
         } else {
