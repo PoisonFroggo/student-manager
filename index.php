@@ -90,9 +90,15 @@ switch ($action) {
 
         } else {
 
-            createStudent($firstname, $lastname, $dob, $email);
+            $result = createStudent($firstname, $lastname, $dob, $email);
 
-            $_SESSION['message'] = "Student added successfully.";
+            if ($result === true) {
+                $_SESSION['message'] = "Student added successfully.";
+                header("Location: index.php");
+                exit();
+            } else {
+                $_SESSION['message'] = $result;
+            }
 
             header("Location: index.php");
             exit();
@@ -131,9 +137,13 @@ switch ($action) {
         $dob       = filter_input(INPUT_POST, 'dob');
         $email     = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
-        update_student($studentid, $firstname, $lastname, $dob, $email);
+        $result = update_student($studentid, $firstname, $lastname, $dob, $email);
 
-        $_SESSION['message'] = "Student updated successfully.";
+        if ($result === true) {
+            $_SESSION['message'] = "Student updated successfully.";
+        } else {
+            $_SESSION['message'] = $result;
+        }
 
         header("Location: index.php");
         exit();
@@ -144,9 +154,9 @@ switch ($action) {
     // Delete student
     case 'delete_student':
 
-        $studentid = filter_input(INPUT_POST, 'studentid', FILTER_VALIDATE_INT);
+        $studentid = filter_input(INPUT_GET, 'studentid', FILTER_VALIDATE_INT);
 
-        delete_student($studentid);
+        removeStudent($studentid);
 
         $_SESSION['message'] = "Student deleted successfully.";
 
