@@ -1,8 +1,5 @@
-<?php
-require_once(__DIR__.'/Config/paths.php');
-require_once(VIEWS_PATH.'/layout/header.php');
 
-echo("student edit");
+<?php require_once(__DIR__.'/../../Config/paths.php'); ?>
+<?php include VIEWS_PATH.'/layout/header.php'; ?>
 
-require_once(VIEWS_PATH.'/layout/footer.php');
-?>
+<?php include VIEWS_PATH.'/layout/footer.php' ?>

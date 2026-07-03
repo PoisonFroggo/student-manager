@@ -106,11 +106,20 @@ switch ($action) {
 
         $studentid = filter_input(INPUT_POST, 'studentid', FILTER_VALIDATE_INT);
 
+        if ($studentid === null || $studentid === false) {
+            $studentid = filter_input(INPUT_GET, 'studentid', FILTER_VALIDATE_INT);
+        }
+
+        if ($studentid === false || $studentid === null) {
+            // Handle invalid or missing student ID
+            exit('Invalid student ID.');
+        }
+
         $student = retrieveStudent($studentid);
 
         include(VIEWS_PATH . '/tables/student_edit.php');
 
-        break;
+    break;
 
 
     // Update student

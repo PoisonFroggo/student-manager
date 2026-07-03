@@ -1,8 +1,5 @@
-<?php
-require_once(__DIR__.'/Config/paths.php');
-require_once(VIEWS_PATH.'/layout/header.php');
-?>
-
+<?php require_once(__DIR__.'/../../Config/paths.php'); ?>
+<?php include VIEWS_PATH.'/layout/header.php'; ?>
 <!DOCTYPE html>
 <html>
 
